@@ -6,7 +6,7 @@
        <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
                 <Label Content="Select the Algorithms:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 0"/>
-                <ComboBox VerticalAlignment="Top" Margin="5 2 0 0" Width="280">
+                <ComboBox x:Name="cbProcesses" VerticalAlignment="Top" Margin="5 2 0 0" Width="280">
                     <ComboBoxItem IsSelected="True" x:Name="cbiFCFS" Selected="CbiFCFS_OnSelected">First-Come First-Serve(FCFS)</ComboBoxItem>
                     <ComboBoxItem x:Name="cbiSJF" Selected="CbiSJF_OnSelected">Shortest Job First(SJF)</ComboBoxItem>
                     <ComboBoxItem x:Name="cbiSRTF" Selected="CbiSRTF_OnSelected">Shortest Remaining Time First(SRTF)</ComboBoxItem>
@@ -14,7 +14,7 @@
                     <ComboBoxItem x:Name="cbiPNP" Selected="CbiPNP_OnSelected">Priority-Nonpreemptive</ComboBoxItem>
                     <ComboBoxItem x:Name="cbiRR" Selected="CbiRR_OnSelected">Round-Robin</ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="btnGO" Margin="10 0 10 0" Width="65.5">Choose</Button>
+                <Button x:Name="btnGO" Margin="10 0 10 0" Width="65.5" Click="BtnGO_OnClick">Choose</Button>
             </StackPanel>
             <GroupBox Header="Algorithm Details" Margin="10 0 10 -5" Height="250">
                 <Grid>

@@ -1,0 +1,55 @@
+﻿<Window x:Class="Process_Scheduling_Algorithms.RR"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Round Robin" Height="350" Width="525" ResizeMode="CanMinimize">
+    <Grid ShowGridLines="False" Background="#FFBAE2E0" >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="65*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="35*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Width="45"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Burst&#xD;&#xA;Time" Width="58"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Arrival&#xD;&#xA;Time" Width="58"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="0">
+                    <Label >Process Name</Label>
+                    <TextBox Height="22"></TextBox>
+                    <Label>Burst Time</Label>
+                    <TextBox Height="22"></TextBox>
+                    <Label>Arrivel Time</Label>
+                    <TextBox Height="22"></TextBox>
+                    <CheckBox Margin="0 1 0 1">Order Arrivel Time</CheckBox>
+                    <Button Height="22">Add Process</Button>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <ProgressBar Value="0" Height="30" VerticalAlignment="Top" Background="DarkOrange" Foreground="LightSeaGreen" IsIndeterminate="False"/>
+        </Grid>
+    </Grid>
+</Window>
+

@@ -80,5 +80,46 @@ namespace Process_Scheduling_Algorithms
             lblSRTF.Visibility = Visibility.Hidden;
         } 
         #endregion
+
+        private void BtnGO_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (cbiFCFS.IsSelected)
+            {
+                FCFS fcfs = new FCFS();
+                fcfs.Tag = this;
+                fcfs.ShowDialog();
+            }
+            else if (cbiPNP.IsSelected)
+            {
+                PNP pnp = new PNP();
+                pnp.Tag = this;
+                pnp.ShowDialog();
+            }
+            else if (cbiPP.IsSelected)
+            {
+                PP pp = new PP();
+                pp.Tag = this;
+                pp.ShowDialog();
+            }
+            else if (cbiRR.IsSelected)
+            {
+                RR rr = new RR();
+                rr.Tag = this;
+                rr.ShowDialog();
+            }
+            else if (cbiSJF.IsSelected)
+            {
+                SJF sjf = new SJF();
+                sjf.Tag = this;
+                sjf.ShowDialog();
+
+            }
+            else if (cbiSRTF.IsSelected)
+            {
+                SRTF srtf = new SRTF();
+                srtf.Tag = this;
+                srtf.ShowDialog();
+            }
+        }
     }
 }
