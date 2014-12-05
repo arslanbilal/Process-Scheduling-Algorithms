@@ -30,7 +30,8 @@ Process-Scheduling-Algorithms
 
 #####Scheme 2: Preemptive 
   * If a new CPU process arrives with CPU burst length less than remaining time of current executing process, preempt.
-  * Also called Shortest-Remaining-Time-First (SRTF).. 
+  * Also called Shortest-Remaining-Time-First (SRTF).. <br>
+
 <hr>
 
 ###Priority
@@ -65,4 +66,5 @@ Process-Scheduling-Algorithms
       * Time slice q too large – response time poor 
       * Time slice (infinity)? - reduces to FIFO behavior 
       * Time slice q too small - Overhead of context switch is too expensive. Throughput poor<br>
+
 <hr>
