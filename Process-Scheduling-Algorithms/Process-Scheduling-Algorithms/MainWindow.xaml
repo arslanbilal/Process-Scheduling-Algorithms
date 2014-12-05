@@ -1,0 +1,31 @@
+﻿<Window x:Class="Process_Scheduling_Algorithms.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Process Scheduling Algorithms" Height="350" Width="525" ResizeMode="CanMinimize">
+    <Grid>
+       <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
+                <Label Content="Select the Algorithms:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 0"/>
+                <ComboBox VerticalAlignment="Top" Margin="5 2 0 0" Width="280">
+                    <ComboBoxItem IsSelected="True" x:Name="cbiFCFS" Selected="CbiFCFS_OnSelected">First-Come First-Serve(FCFS)</ComboBoxItem>
+                    <ComboBoxItem x:Name="cbiSJF" Selected="CbiSJF_OnSelected">Shortest Job First(SJF)</ComboBoxItem>
+                    <ComboBoxItem x:Name="cbiSRTF" Selected="CbiSRTF_OnSelected">Shortest Remaining Time First(SRTF)</ComboBoxItem>
+                    <ComboBoxItem x:Name="cbiPP" Selected="CbiPP_OnSelected">Priority-Preemptive</ComboBoxItem>
+                    <ComboBoxItem x:Name="cbiPNP" Selected="CbiPNP_OnSelected">Priority-Nonpreemptive</ComboBoxItem>
+                    <ComboBoxItem x:Name="cbiRR" Selected="CbiRR_OnSelected">Round-Robin</ComboBoxItem>
+                </ComboBox>
+                <Button x:Name="btnGO" Margin="10 0 10 0" Width="65.5">Choose</Button>
+            </StackPanel>
+            <GroupBox Header="Algorithm Details" Margin="10 0 10 -5" Height="250">
+                <Grid>
+                    <Label x:Name="lblFCFS" Visibility="Visible">First-Come First-Serve(FCFS)</Label>
+                    <Label x:Name="lblSJF" Visibility="Hidden">Shortest Job First(SJF)</Label>
+                    <Label x:Name="lblSRTF" Visibility="Hidden">Shortest Remaining Time First(SRTF)</Label>
+                    <Label x:Name="lblPP" Visibility="Hidden">Priority-Preemptive</Label>
+                    <Label x:Name="lblPNP" Visibility="Hidden">Priority-Nonpreemptive</Label>
+                    <Label x:Name="lblRR" Visibility="Hidden">Round-Robin</Label>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Window>
