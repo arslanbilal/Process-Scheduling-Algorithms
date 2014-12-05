@@ -1,4 +1,4 @@
-This Project is a Operating System Process scheduling and managing.
+This Project is a Operating System Process scheduling and managing. It will be a WPF program that shows process scheduling.
 
 Process-Scheduling-Algorithms
 =============================
