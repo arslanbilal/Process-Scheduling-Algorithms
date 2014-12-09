@@ -23,5 +23,15 @@ namespace Process_Scheduling_Algorithms
         {
             InitializeComponent();
         }
+
+        //! TextBox'a sadece harf kabul eden Fonksiyon.
+        private void txt_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+
+            }
+        }
     }
 }

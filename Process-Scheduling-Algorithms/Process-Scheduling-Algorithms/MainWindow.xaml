@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Process_Scheduling_Algorithms.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Process Scheduling Algorithms" Height="350" Width="525" ResizeMode="CanMinimize">
+        Title="Process Scheduling Algorithms" Height="400" Width="525" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
        <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
@@ -16,7 +16,7 @@
                 </ComboBox>
                 <Button x:Name="btnGO" Margin="10 0 10 0" Width="65.5" Click="BtnGO_OnClick">Choose</Button>
             </StackPanel>
-            <GroupBox Header="Algorithm Details" Margin="10 0 10 -5" Height="250">
+            <GroupBox Header="Algorithm Details" Margin="10 0 10 -5" Height="300">
                 <Grid>
                     <Label x:Name="lblFCFS" Visibility="Visible">First-Come First-Serve(FCFS)</Label>
                     <Label x:Name="lblSJF" Visibility="Hidden">Shortest Job First(SJF)</Label>
