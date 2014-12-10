@@ -27,15 +27,15 @@
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="65*"/>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"/>
+                <DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto" CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"/>
                 <StackPanel Grid.Column="0">
                     <Label >Process Name</Label>
                     <TextBox x:Name="txtProcessName" Height="22"></TextBox>
                     <Label>Burst Time</Label>
                     <TextBox x:Name="txtBurstTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
-                    <Label>Arrivel Time</Label>
-                    <TextBox x:Name="txtArrivelTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
-                    <CheckBox x:Name="cbOrderArrivelTime" Margin="0 1 0 1">Order Arrivel Time</CheckBox>
+                    <Label>Arrival Time</Label>
+                    <TextBox x:Name="txtArrivalTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
+                    <CheckBox x:Name="cbOrderArrivalTime" Margin="0 1 0 1">Order Arrival Time</CheckBox>
                     <Button x:Name="btnAddProcess" Height="22">Add Process</Button>
                 </StackPanel>
                 
