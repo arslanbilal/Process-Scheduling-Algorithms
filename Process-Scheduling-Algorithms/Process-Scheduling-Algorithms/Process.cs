@@ -5,12 +5,12 @@ namespace Process_Scheduling_Algorithms
 {
     class Process
     {
-        public static int _count = 0;
+        private static int _count = 0;
 
         private int _priority;
         private int _burstTime;
         private int _arrivalTime;
-        public string Name { get; set; }
+        private string _name;
 
         public int BurstTime
         {
@@ -28,6 +28,12 @@ namespace Process_Scheduling_Algorithms
         {
             get { return _priority; }
             set { _priority = value < 0 ? 0 : value; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
         }
 
         public Process(string name, int priority, int burstTime, int arrivalTime)

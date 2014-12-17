@@ -32,11 +32,19 @@
                     <Label >Process Name</Label>
                     <TextBox x:Name="txtProcessName" Height="22"></TextBox>
                     <Label>Burst Time</Label>
+<<<<<<< HEAD
                     <TextBox x:Name="txtBurstTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
                     <Label>Arrivel Time</Label>
                     <TextBox x:Name="txtArrivelTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
                     <CheckBox x:Name="cbOrderArrivelTime" Margin="0 1 0 1">Order Arrivel Time</CheckBox>
                     <Button x:Name="btnAddProcess" Height="22">Add Process</Button>
+=======
+                    <TextBox Height="22"></TextBox>
+                    <Label>Arrival Time</Label>
+                    <TextBox Height="22"></TextBox>
+                    <CheckBox Margin="0 1 0 1">Order Arrival Time</CheckBox>
+                    <Button Height="22">Add Process</Button>
+>>>>>>> origin/master
                 </StackPanel>
 
             </Grid>
