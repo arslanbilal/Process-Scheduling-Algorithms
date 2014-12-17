@@ -23,29 +23,26 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="39*"/>
                     <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="65*"/>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Width="45"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Burst&#xD;&#xA;Time" Width="58"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Arrival&#xD;&#xA;Time" Width="58"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"/>
                 <StackPanel Grid.Column="0">
                     <Label >Process Name</Label>
-                    <TextBox Height="22"></TextBox>
+                    <TextBox x:Name="txtProcessName" Height="22"></TextBox>
                     <Label>Burst Time</Label>
-                    <TextBox Height="22"></TextBox>
+                    <TextBox x:Name="txtBurstTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
                     <Label>Arrivel Time</Label>
-                    <TextBox Height="22"></TextBox>
-                    <CheckBox Margin="0 1 0 1">Order Arrivel Time</CheckBox>
-                    <Button Height="22">Add Process</Button>
+                    <TextBox x:Name="txtArrivelTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
+                    <CheckBox x:Name="cbOrderArrivelTime" Margin="0 1 0 1">Order Arrivel Time</CheckBox>
+                    <Button x:Name="btnAddProcess" Height="22">Add Process</Button>
                 </StackPanel>
-            </Grid>
 
+            </Grid>
+            <Grid Grid.Column="2" Background="Orchid">
+                <TextBox IsReadOnly="True" Background="Transparent"></TextBox>
+            </Grid>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1">
             <ProgressBar Value="0" Height="30" VerticalAlignment="Top" Background="DarkOrange" Foreground="LightSeaGreen" IsIndeterminate="False"/>
