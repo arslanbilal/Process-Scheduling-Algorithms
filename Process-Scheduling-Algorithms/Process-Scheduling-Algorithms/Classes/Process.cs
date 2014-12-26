@@ -5,7 +5,7 @@ namespace Process_Scheduling_Algorithms
 {
     class Process
     {
-        private static int _count = 0;
+        private static int _count;
 
         private int _priority;
         private int _burstTime;
@@ -46,12 +46,17 @@ namespace Process_Scheduling_Algorithms
 
         public Process(int priority, int burstTime, int arrivalTime)
         {
-            Name = string.Format("P{0}", _count++);
+            this.Name = string.Format("P{0}", _count++);
             this.Priority = priority;
             this.BurstTime = burstTime;
             this.ArrivalTime = arrivalTime;
         }
 
+        public Process(string name, int burstTime)
+        {
+            this.Name = name;
+            this.BurstTime = burstTime;
+        }
 
         public int CompareToPriority(Process obj)
         {

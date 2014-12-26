@@ -57,7 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Process.cs" />
+    <Compile Include="Classes\Graph.cs" />
+    <Compile Include="Classes\Process.cs" />
     <Compile Include="Algorithms\RR.xaml.cs">
       <DependentUpon>RR.xaml</DependentUpon>
     </Compile>
@@ -114,6 +115,7 @@
     <Compile Include="Algorithms\PP.xaml.cs">
       <DependentUpon>PP.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

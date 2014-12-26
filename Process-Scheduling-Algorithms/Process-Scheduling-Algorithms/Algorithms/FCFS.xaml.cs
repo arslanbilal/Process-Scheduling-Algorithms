@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
+using Process_Scheduling_Algorithms.Classes;
 
 namespace Process_Scheduling_Algorithms
 {
@@ -13,12 +14,18 @@ namespace Process_Scheduling_Algorithms
     public partial class FCFS : Window
     {
         private DataTable dt;
+        private Graph _graph;
         int index = 0;
 
         public FCFS()
         {
             InitializeComponent();
+
+            _graph = new Graph(grdProcesses);
+            
             btnAddProcess.Click += btnAddProcess_Click;
+
+
 
             this.Loaded += (sender, e) =>
             {
@@ -43,19 +50,33 @@ namespace Process_Scheduling_Algorithms
 
         void btnAddProcess_Click(object sender, RoutedEventArgs e)
         {
-            if (txtArrivalTime.Text != string.Empty &&
+
+
+            if ((txtArrivalTime.Text != string.Empty || cbOrderArrivalTime.IsChecked == false) &&
                 txtBurstTime.Text != string.Empty &&
                 txtProcessName.Text != string.Empty)
             {
-                Process p = new Process(
-                    txtProcessName.Text.ToString()
+                Process p;
+                
+                if (cbOrderArrivalTime.IsChecked == true)
+                {
+                    p = new Process(
+                    txtProcessName.Text
                     , 0
-                    , int.Parse(txtBurstTime.Text.ToString())
-                    , int.Parse(txtArrivalTime.Text.ToString()));
+                    , int.Parse(txtBurstTime.Text)
+                    , int.Parse(txtArrivalTime.Text));
+                }
+                else
+                {
+                    p = new Process(txtProcessName.Text, int.Parse(txtBurstTime.Text));
+                }
+
+
+                _graph.AddProcess(p.BurstTime, p.Name);
 
                 MessageBox.Show(p.Name);
 
-                dt.Rows.Add(p.Name, p.BurstTime.ToString(), p.ArrivalTime.ToString());
+                dt.Rows.Add(p.Name.ToString(), p.BurstTime.ToString(), p.ArrivalTime.ToString());
 
                 dgProcesses.ItemsSource = dt.DefaultView;
                 dgProcesses.Items.Refresh();
