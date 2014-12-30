@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-
-namespace Process_Scheduling_Algorithms
+﻿namespace Process_Scheduling_Algorithms
 {
     class Process
     {
