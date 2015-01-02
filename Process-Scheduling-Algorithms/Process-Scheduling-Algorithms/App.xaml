@@ -3,6 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type RadioButton}" >
+            <!--<Setter Property="FontSize" Value="20"/>-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <BulletDecorator Cursor="Hand">
+                            <!--Text element-->
+                            <Border CornerRadius="3" BorderBrush="#FFE2E2E2" BorderThickness="1">
+                                <Grid>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <!--We don't need any bullet, cause our border is the switching element-->
+                                    <Border Background="#ABCDCDCD" CornerRadius="1" Name="RadioMark" />
+                                    
+                                    <!-- To change the apearance to button stripe 2, edit the margins! -->
+                                </Grid>
+
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="White" Offset="0" />
+                                        <GradientStop Color="#FFE2E2E2" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </BulletDecorator>
+
+                        <!--If item is checked, trigger the visibility of the mark-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="RadioMark" Property="Background" Value="#88FFD700"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

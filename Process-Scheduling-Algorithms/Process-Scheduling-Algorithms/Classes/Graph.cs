@@ -1,0 +1,429 @@
+﻿using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
+
+namespace Process_Scheduling_Algorithms.Classes
+{
+    internal class Graph
+    {
+        private Grid Parent { get; set; }
+        private Grid grdLines;
+        private Grid grdProcessesTimes;
+        private int _count;
+        private ProgressBar pbar;
+        public List<Process> LstProcesses { get; set; }
+
+        public Graph(Grid parent)
+        {
+            Parent = parent;
+            LstProcesses = new List<Process>();
+
+            pbar = new ProgressBar
+            {
+                Value = 0,
+                Height = 42,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            parent.Children.Add(pbar);
+
+            grdLines = new Grid { Height = 50, VerticalAlignment = VerticalAlignment.Top };
+            BeginDrawLineToGrid();
+            parent.Children.Add(grdLines);
+
+            grdProcessesTimes = new Grid();
+            BeginWriteProcessTimesToGrid();
+            parent.Children.Add(grdProcessesTimes);
+
+            //grdLines.ShowGridLines = true;
+            //grdProcessesTimes.ShowGridLines = true;
+        }
+
+        private void ctorGraph()
+        {
+            pbar = new ProgressBar
+            {
+                Value = 0,
+                Height = 42,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            Parent.Children.Add(pbar);
+
+            grdLines = new Grid { Height = 50, VerticalAlignment = VerticalAlignment.Top };
+            BeginDrawLineToGrid();
+            Parent.Children.Add(grdLines);
+
+            grdProcessesTimes = new Grid();
+            BeginWriteProcessTimesToGrid();
+            Parent.Children.Add(grdProcessesTimes);
+        }
+
+        /// <summary>
+        /// Verilen gride processler ilk zaman cizgisini '0' (sifir)i cizer
+        /// </summary>
+        private void BeginDrawLineToGrid()
+        {
+            var line = GiveMeALine();
+            Grid.SetColumn(line, 0);
+            grdLines.Children.Add(line);
+
+            grdLines.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Star) });
+        }
+
+        /// <summary>
+        /// Processlerin baslangic zamani olan sifir rakamini cizginin altina yazar
+        /// </summary>
+        private void BeginWriteProcessTimesToGrid()
+        {
+            grdProcessesTimes.Margin = new Thickness(-8, -8, 8, 0);
+            grdProcessesTimes.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(0, GridUnitType.Star) });
+            Label lblZero = new Label
+            {
+                Margin = new Thickness(0, 45, 0, 0),
+                Content = 0,
+                FontWeight = FontWeights.Bold,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            grdProcessesTimes.Children.Add(lblZero);
+        }
+
+        /// <summary>
+        /// processin basglangic ve bitis zamanina gore yeni process ekler
+        /// </summary>
+        /// <param name="endTime">processin bitis zamani</param>
+        /// <param name="name">processin adi</param>
+        /// <param name="beginTime">processin baslangic zamani</param>
+        public void AddProcess(int beginTime, int endTime, string name)
+        {
+
+            //_count++;
+        }
+
+        private void AddProcessForCases(int burstTime, string name, int count, int sum)
+        {
+            grdLines.ColumnDefinitions[count].Width = new GridLength(burstTime, GridUnitType.Star);
+            //grdLines.ColumnDefinitions[_count].Width = new GridLength(burstTime - lastEndTime, GridUnitType.Star);
+
+
+            // bir onceki columdefinition un Width ni ayarlayip(GridUnitType.Star oldugu icin yuzdelik olarak ayarlar) _count'u bir artirir.
+            grdProcessesTimes.ColumnDefinitions[count].Width = new GridLength(burstTime, GridUnitType.Star);
+            //grdProcessesTimes.ColumnDefinitions[_count].Width = new GridLength(burstTime - lastEndTime, GridUnitType.Star);
+
+            //column definition ekleme islemi
+            grdLines.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            //grdLines.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Pixel) });
+            grdProcessesTimes.ColumnDefinitions.Add(new ColumnDefinition
+            {
+                Width = new GridLength(30, GridUnitType.Pixel)
+            });
+            //grdProcessesTimes.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Pixel) });
+
+            var tbProcess = new TextBlock
+            {
+                Margin = new Thickness(8, 18, -8, 0),
+                Text = string.Format("{0}({1})", name, burstTime),
+                FontWeight = FontWeights.Bold,
+                Height = 42,
+                Background = Brushes.Transparent,
+                VerticalAlignment = VerticalAlignment.Top,
+                TextAlignment = TextAlignment.Center
+                //, BorderThickness = new Thickness(0)
+            };
+            Grid.SetColumn(tbProcess, count);
+            grdProcessesTimes.Children.Add(tbProcess);
+
+            //yeni line ekleme islemi
+            var line = GiveMeALine();
+            Grid.SetColumn(line, count + 1);
+            Label lblBackGround = new Label
+            {
+                Background = count % 2 == 0 ? Brushes.Transparent : Brushes.LightSlateGray,
+                VerticalAlignment = VerticalAlignment.Top,
+                Height = 42
+            };
+            grdLines.Children.Add(lblBackGround);
+            Grid.SetColumn(lblBackGround, count);
+            grdLines.Children.Add(line);
+
+
+            Label lblProcess = new Label
+            {
+                Margin = new Thickness(0, 45, 0, 0),
+                Content = sum,
+                //Background = _count % 2 == 0 ? Brushes.Transparent : Brushes.LightSlateGray,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            Grid.SetColumn(lblProcess, count + 1);
+            grdProcessesTimes.Children.Add(lblProcess);
+        }
+
+        /// <summary>
+        /// processin bitis zamanina gore yeni process ekler
+        /// </summary>
+        /// <param name="burstTime">process bitis zamani</param>
+        /// <param name="name">process adi</param>
+        public void AddProcess(int burstTime, string name)
+        {
+            LstProcesses.Add(new Process(name, burstTime));
+            //bu process icin onceki columndefinitionun genisligini ayarlanmasi
+            int lastEndTime = 0;
+            
+            //if (LstProcesses.Count != 1)
+            //{
+            //    lastEndTime = LstProcesses[_count - 1].BurstTime;
+            //}
+
+            grdLines.ColumnDefinitions[_count].Width = new GridLength(burstTime, GridUnitType.Star);
+            //grdLines.ColumnDefinitions[_count].Width = new GridLength(burstTime - lastEndTime, GridUnitType.Star);
+
+
+            // bir onceki columdefinition un Width ni ayarlayip(GridUnitType.Star oldugu icin yuzdelik olarak ayarlar) _count'u bir artirir.
+            grdProcessesTimes.ColumnDefinitions[_count].Width = new GridLength(burstTime, GridUnitType.Star);
+            //grdProcessesTimes.ColumnDefinitions[_count].Width = new GridLength(burstTime - lastEndTime, GridUnitType.Star);
+
+            //column definition ekleme islemi
+            grdLines.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            //grdLines.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Pixel) });
+            grdProcessesTimes.ColumnDefinitions.Add(new ColumnDefinition
+            {
+                Width = new GridLength(30, GridUnitType.Pixel)
+            });
+            //grdProcessesTimes.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(10, GridUnitType.Pixel) });
+
+            var tbProcess = new TextBlock
+            {
+                Margin = new Thickness(8, 18, -8, 0)
+                , Text = string.Format("{0}({1})", name, burstTime)
+                , FontWeight = FontWeights.Bold
+                , Height = 42
+                , Background = Brushes.Transparent
+                , VerticalAlignment = VerticalAlignment.Top
+                , TextAlignment = TextAlignment.Center
+                //, BorderThickness = new Thickness(0)
+            };
+            Grid.SetColumn(tbProcess, _count);
+            grdProcessesTimes.Children.Add(tbProcess);
+
+            //yeni line ekleme islemi
+            var line = GiveMeALine();
+            Grid.SetColumn(line, _count + 1);
+            Label lblBackGround = new Label 
+            { 
+                Background = _count % 2 == 0 ? Brushes.Transparent : Brushes.LightSlateGray ,                
+                VerticalAlignment = VerticalAlignment.Top,
+                Height = 42
+            };
+            grdLines.Children.Add(lblBackGround);
+            Grid.SetColumn(lblBackGround, _count);
+            grdLines.Children.Add(line);
+
+
+            Label lblProcess = new Label
+            {
+                Margin = new Thickness(0, 45, 0, 0),
+                Content = SumOfBurstTimes(),
+                //Background = _count % 2 == 0 ? Brushes.Transparent : Brushes.LightSlateGray,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top
+            };
+            Grid.SetColumn(lblProcess, _count + 1);
+            grdProcessesTimes.Children.Add(lblProcess);
+
+            _count++;
+        }
+
+        public int ProcessesCount()
+        {
+            return _count + 1;
+        }
+
+        /// <summary>
+        /// Yukaridan asagiya dogru duzgun siyah bir cizgi dondurur 
+        /// </summary>
+        /// <returns></returns>
+        private Path GiveMeALine()
+        {
+            // Create a blue and a black Brush
+            //SolidColorBrush blueBrush = new SolidColorBrush {Color = Colors.Blue};
+            SolidColorBrush blackBrush = new SolidColorBrush { Color = Colors.Black };
+
+
+            // Create a Path with black brush and blue fill
+            //Path bluePath = new Path { Stroke = blackBrush, StrokeThickness = 3, Fill = blueBrush };
+            Path bluePath = new Path { Stroke = blackBrush, StrokeThickness = 3 };
+
+            // Create a line geometry
+            LineGeometry blackLineGeometry = new LineGeometry
+            {
+                StartPoint = new Point(0, 1),
+                EndPoint = new Point(0, 42)
+            };
+
+            // Add all the geometries to a GeometryGroup.
+            GeometryGroup blueGeometryGroup = new GeometryGroup();
+            blueGeometryGroup.Children.Add(blackLineGeometry);
+
+            // Set Path.Data
+            bluePath.Data = blueGeometryGroup;
+            //grdBase.Children.Add(bluePath);
+            return bluePath;
+        }
+
+        private List<Process> SortForPriority()
+        {
+            var lst = LstProcesses.ToList();
+
+            for (int i = 0; i < lst.Count - 1; i++)
+            {
+                for (int j = 1; j < lst.Count - i; j++)
+                {
+                    if (lst[j].CompareToPriority(lst[j - 1]) == -1)
+                    {
+                        var temp = lst[j];
+                        lst[j] = lst[j - 1];
+                        lst[j - 1] = temp;
+                    }
+                }
+            }
+            return lst;
+        }
+
+        private List<Process> SortForBurstTime(bool mintomax)
+        {
+            var lst = LstProcesses.ToList();
+
+            for (int i = 0; i < lst.Count - 1; i++)
+            {
+                for (int j = 1; j < lst.Count - i; j++)
+                {
+                    if (mintomax)
+                    {
+                        if (lst[j].CompareToBurstTime(lst[j - 1]) == -1)
+                        {
+                            var temp = lst[j];
+                            lst[j] = lst[j - 1];
+                            lst[j - 1] = temp;
+                        } 
+                    }
+                    else
+                    {
+                        if (lst[j].CompareToBurstTime(lst[j - 1]) == 1)
+                        {
+                            var temp = lst[j];
+                            lst[j] = lst[j - 1];
+                            lst[j - 1] = temp;
+                        } 
+                    }
+                }
+            }
+            return (lst);
+        }
+
+        private int SumOfBurstTimes()
+        {
+            return LstProcesses.Sum(lstProcess => lstProcess.BurstTime);
+        }
+
+        #region FCFS
+        public List<Process> OrderByBestCase()
+        {
+            var lst = SortForBurstTime(true);
+            Parent.Children.Clear();
+            ctorGraph();
+            int sum = 0;
+            for (int i = 0; i < lst.Count; i++)
+            {
+                var process = lst[i];
+                sum += process.BurstTime;
+                AddProcessForCases(process.BurstTime, process.Name, i, sum);
+            }
+            return lst;
+        }
+
+
+        public List<Process> OrderByWorstCase()
+        {
+            var lst = SortForBurstTime(false);
+            Parent.Children.Clear();
+            ctorGraph();
+            int sum = 0;
+            for (int i = 0; i < lst.Count; i++)
+            {
+                var process = lst[i];
+                sum += process.BurstTime;
+                AddProcessForCases(process.BurstTime, process.Name, i, sum);
+            }
+            return lst;
+        }
+
+
+        public void OrderByDefaultCase()
+        {
+            var lst = LstProcesses;
+            Parent.Children.Clear();
+            ctorGraph();
+            int sum = 0;
+            for (int i = 0; i < lst.Count; i++)
+            {
+                var process = lst[i];
+                sum += process.BurstTime;
+                AddProcessForCases(process.BurstTime, process.Name, i, sum);
+            }
+
+        }
+
+        /// <summary>
+        /// Average Waiting Time and Average Completion Times calculations
+        /// </summary>
+        public double AverageWaitingTime(List<Process> lst)
+        {
+            double sum = 0;
+            double temp = 0;
+            for (int i = 1; i < lst.Count; i++)
+            {
+                sum += lst[i - 1].BurstTime;
+                temp += sum;
+            }
+            return temp / lst.Count;
+        }
+
+        public string[] WaitingTimes(List<Process> lst)
+        {
+            double sum = 0;
+            string[] temp = new string[lst.Count];
+            temp[0] = string.Format("{0} : {1}", lst[0].Name, sum);
+            for (int i = 1; i < lst.Count; i++)
+            {
+                sum += lst[i - 1].BurstTime;
+                temp[i] = string.Format("{0} : {1}", lst[i].Name, sum);
+            }
+
+            return temp;
+        }
+
+        public double AverageCompletionTime(List<Process> lst)
+        {
+            double sum = 0;
+            double temp = 0;
+            foreach (Process t in lst)
+            {
+                sum += t.BurstTime;
+                temp += sum;
+            }
+            return temp/lst.Count;
+        }
+        #endregion
+
+
+    }
+}

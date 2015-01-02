@@ -1,9 +1,7 @@
 ﻿using System.Data;
-using System.Dynamic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Xml;
 using Process_Scheduling_Algorithms.Classes;
 
 namespace Process_Scheduling_Algorithms
@@ -15,7 +13,6 @@ namespace Process_Scheduling_Algorithms
     {
         private DataTable dt;
         private Graph _graph;
-        int index = 0;
 
         public FCFS()
         {
@@ -25,33 +22,10 @@ namespace Process_Scheduling_Algorithms
             
             btnAddProcess.Click += btnAddProcess_Click;
 
-
-
-            this.Loaded += (sender, e) =>
-            {
-                dgProcesses.SelectionMode           = DataGridSelectionMode.Single;
-                dgProcesses.CanUserAddRows          = false;
-                dgProcesses.CanUserDeleteRows       = true;
-                dgProcesses.CanUserResizeRows       = false;
-                dgProcesses.CanUserReorderColumns   = false;
-                dgProcesses.CanUserSortColumns      = false;
-                dgProcesses.IsReadOnly              = true;
-                dgProcesses.CanUserResizeColumns    = false;
-            };
-
-
-            dt = new DataTable();
-            dt.Columns.Add("Name  ");
-            dt.Columns.Add("Burst Time");
-            dt.Columns.Add("Arrival Time");
-            dgProcesses.ItemsSource = dt.DefaultView;
-
         }
 
         void btnAddProcess_Click(object sender, RoutedEventArgs e)
         {
-
-
             if ((txtArrivalTime.Text != string.Empty || cbOrderArrivalTime.IsChecked == false) &&
                 txtBurstTime.Text != string.Empty &&
                 txtProcessName.Text != string.Empty)
@@ -68,19 +42,12 @@ namespace Process_Scheduling_Algorithms
                 }
                 else
                 {
+                    //int burstTime
                     p = new Process(txtProcessName.Text, int.Parse(txtBurstTime.Text));
                 }
 
-
                 _graph.AddProcess(p.BurstTime, p.Name);
-
-                MessageBox.Show(p.Name);
-
-                dt.Rows.Add(p.Name.ToString(), p.BurstTime.ToString(), p.ArrivalTime.ToString());
-
-                dgProcesses.ItemsSource = dt.DefaultView;
-                dgProcesses.Items.Refresh();
-                UpdateEveryting();
+                this.UpdateTimeInfos();
             }
             else
             {
@@ -98,16 +65,68 @@ namespace Process_Scheduling_Algorithms
             }
         }
 
-        void UpdateEveryting()
+        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
-            dgProcesses.SelectionMode = DataGridSelectionMode.Single;
-            dgProcesses.CanUserAddRows = false;
-            dgProcesses.CanUserDeleteRows = true;
-            dgProcesses.CanUserReorderColumns = true;
-            dgProcesses.CanUserResizeRows = false;
-            dgProcesses.CanUserReorderColumns = false;
-            dgProcesses.CanUserSortColumns = false;
-            dgProcesses.IsReadOnly = true;
+            try
+            {
+                UpdateTimeInfos();
+            }
+            catch (System.Exception)
+            {
+                
+            }
+        }
+
+        public void UpdateTimeInfos()
+        {
+            txbDefaultWaiting.Text = string.Format("{0:##.00}", _graph.AverageWaitingTime(_graph.LstProcesses));
+            txbDefaultCompletion.Text = string.Format("{0:##.00}", _graph.AverageCompletionTime(_graph.LstProcesses));
+
+            var lst = _graph.OrderByBestCase();
+            txbBestWaiting.Text = string.Format("{0:##.00}", _graph.AverageWaitingTime(lst));
+            txbBestCompletion.Text = string.Format("{0:##.00}", _graph.AverageCompletionTime(lst));
+
+            lst = _graph.OrderByWorstCase();
+            txbWorstWaiting.Text = string.Format("{0:##.00}", _graph.AverageWaitingTime(lst));
+            txbWorstCompletion.Text = string.Format("{0:##.00}", _graph.AverageCompletionTime(lst));
+
+            if (rbDefault.IsChecked == true)
+            {
+                try
+                {
+                    _graph.OrderByDefaultCase();
+                    var waitingTimes = _graph.WaitingTimes(_graph.LstProcesses);
+                    lstbProcessWaitingTimes.Items.Clear();
+                    for (int i = 0; i < waitingTimes.Length; i++)
+                    {
+                        lstbProcessWaitingTimes.Items.Add(new ListBoxItem { Content = waitingTimes[i] });
+                    }
+                }
+                catch (System.Exception)
+                {
+
+                }
+            }
+            else if (rbBestCase.IsChecked == true)
+            {
+                lst = _graph.OrderByBestCase();
+                var waitingTimes = _graph.WaitingTimes(lst);
+                lstbProcessWaitingTimes.Items.Clear();
+                for (int i = 0; i < waitingTimes.Length; i++)
+                {
+                    lstbProcessWaitingTimes.Items.Add(new ListBoxItem { Content = waitingTimes[i] });
+                }
+            }
+            else if (rbWorstCase.IsChecked == true)
+            {
+                lst = _graph.OrderByWorstCase();
+                var waitingTimes = _graph.WaitingTimes(lst);
+                lstbProcessWaitingTimes.Items.Clear();
+                for (int i = 0; i < waitingTimes.Length; i++)
+                {
+                    lstbProcessWaitingTimes.Items.Add(new ListBoxItem { Content = waitingTimes[i] });
+                }
+            }
         }
     }
 }
