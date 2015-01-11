@@ -12,7 +12,7 @@
                             <!--Text element-->
                             <Border CornerRadius="3" BorderBrush="#FFE2E2E2" BorderThickness="1">
                                 <Grid>
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <!--We don't need any bullet, cause our border is the switching element-->
                                     <Border Background="#ABCDCDCD" CornerRadius="1" Name="RadioMark" />
                                     

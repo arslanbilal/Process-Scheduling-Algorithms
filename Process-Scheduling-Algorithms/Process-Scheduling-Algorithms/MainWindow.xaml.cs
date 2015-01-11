@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Process_Scheduling_Algorithms
 {
@@ -97,20 +96,20 @@ namespace Process_Scheduling_Algorithms
             }
             else if (cbiPP.IsSelected)
             {
-                PP pp = new PP();
+                PP pp  = new PP();
                 pp.Tag = this;
                 pp.ShowDialog();
             }
             else if (cbiRR.IsSelected)
             {
-                RR rr = new RR();
+                RR rr  = new RR();
                 rr.Tag = this;
                 rr.ShowDialog();
             }
             else if (cbiSJF.IsSelected)
             {
-                SJF sjf = new SJF();
-                sjf.Tag = this;
+                SJF sjf      = new SJF();
+                sjf.Tag      = this;
                 sjf.ShowDialog();
 
             }
@@ -175,23 +174,25 @@ namespace Process_Scheduling_Algorithms
 
 
             lblSJF.Content = "Shortest Job First(SJF)\n\n" +
-                "1) Associate with each process the length of its next CPU burst.\n" +
-                "2) Use these lengths to schedule the process with the shortest time.\n" +
-                "3) Two Schemes:\n" +
-                "Scheme 1: Non-preemptive\n" +
-                "\t # Once CPU is given to the process it cannot be preempted until it completes \nits CPU burst.\n" +
-                "Scheme 2: Preemptive\n" +
-                "\t # If a new CPU process arrives with CPU burst length less than remaining time \nof current executing process, preempt.\n" +
-                "\t # Also called Shortest-Remaining-Time-First (SRTF).. ";
+                             "1) Associate with each process the length of its next CPU burst.\n" +
+                             "2) Use these lengths to schedule the process with the shortest time.\n" +
+                             //"3) Two Schemes:\n" +
+                             //"Scheme 1: Non-preemptive\n" +
+                             "Scheme : Non-preemptive\n" +
+                             "\t # Once CPU is given to the process it cannot be preempted until it completes \nits CPU burst.\n";
+                //"Scheme 2: Preemptive\n" +
+                //"\t # If a new CPU process arrives with CPU burst length less than remaining time \nof current executing process, preempt.\n" +
+                //"\t # Also called Shortest-Remaining-Time-First (SRTF).. ";
 
 
             lblSRTF.Content = "Shortest Remaining Time First(SRTF)\n\n" +
                 "1) Associate with each process the length of its next CPU burst.\n" +
                 "2) Use these lengths to schedule the process with the shortest time.\n" +
-                "3) Two Schemes:\n" +
-                "Scheme 1: Non-preemptive\n" +
-                "\t # Once CPU is given to the process it cannot be preempted until it completes \nits CPU burst.\n" +
-                "Scheme 2: Preemptive\n" +
+                //"3) Two Schemes:\n" +
+                //"Scheme 1: Non-preemptive\n" +
+                //"\t # Once CPU is given to the process it cannot be preempted until it completes \nits CPU burst.\n" +
+                //"Scheme 2: Preemptive\n" +
+                "Scheme : Preemptive\n" +
                 "\t # If a new CPU process arrives with CPU burst length less than remaining time \nof current executing process, preempt.\n" +
                 "\t # Also called Shortest-Remaining-Time-First (SRTF).. ";
         }

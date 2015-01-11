@@ -59,14 +59,14 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Graph.cs" />
     <Compile Include="Classes\Process.cs" />
-    <Compile Include="Algorithms\RR.xaml.cs">
-      <DependentUpon>RR.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Algorithms\SJF.xaml.cs">
       <DependentUpon>SJF.xaml</DependentUpon>
     </Compile>
     <Compile Include="Algorithms\SRTF.xaml.cs">
       <DependentUpon>SRTF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Algorithms\RR.xaml.cs">
+      <DependentUpon>RR.xaml</DependentUpon>
     </Compile>
     <Page Include="Algorithms\FCFS.xaml">
       <SubType>Designer</SubType>
@@ -95,10 +95,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Algorithms\RR.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Algorithms\SJF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +102,10 @@
     <Page Include="Algorithms\SRTF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Algorithms\RR.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

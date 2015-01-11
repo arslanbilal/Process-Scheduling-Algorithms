@@ -1,8 +1,8 @@
 ﻿<Window x:Class="Process_Scheduling_Algorithms.RR"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Round Robin" Height="350" Width="525" ResizeMode="CanMinimize">
-    <Grid ShowGridLines="False" Background="#FFBAE2E0" >
+        Title="Round Robin" Height="350" Width="555" ResizeMode="CanResize" MaxHeight="350" MinHeight="350" MinWidth="555">
+    <Grid ShowGridLines="False" Background="#FFBAE2E0">
         <Grid.RowDefinitions >
             <RowDefinition Height="5"/>
             <RowDefinition Height="62*"/>
@@ -19,33 +19,74 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="65*"/>
                 <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="35*"/>
+                <!--<ColumnDefinition Width="35*"/>-->
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="39*"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="65*"/>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"/>
+                <!--<DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto" CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"/>-->
+                <Grid Grid.Column="2" Background="LightSlateGray">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <RadioButton IsChecked="True" FontWeight="Bold">Processes</RadioButton>
+                    </Grid>
+                    <ListBox x:Name="lstbProcesses" BorderThickness="0" Grid.Row="1" Grid.Column="0" Background="Transparent" ></ListBox>
+
+                    <RadioButton x:Name="rbDefault" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="1" FontWeight="Bold" IsChecked="True" >Result</RadioButton>
+                    <RadioButton x:Name="rbBestCase" Visibility="Hidden" Grid.Row="0" Grid.Column="1" FontWeight="Bold" >Best Case</RadioButton>
+                    <RadioButton x:Name="rbWorstCase" Visibility="Hidden" Grid.Row="0" Grid.Column="2" FontWeight="Bold" >Worst Case</RadioButton>
+                    <Grid Grid.Row="0" Grid.Column="3">
+                        <RadioButton  FontWeight="Bold" IsChecked="True" >Process Waiting Time</RadioButton>
+                    </Grid>
+                    <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1">
+                        <TextBlock FontWeight="Bold" Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Waiting Time</TextBlock>
+                        <TextBlock x:Name="txbDefaultWaiting" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        <TextBlock FontWeight="Bold" Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Completion Time</TextBlock>
+                        <TextBlock x:Name="txbDefaultCompletion" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Visibility="Hidden">
+                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Waiting Time</TextBlock>
+                        <TextBlock x:Name="txbBestWaiting" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Completion Time</TextBlock>
+                        <TextBlock x:Name="txbBestCompletion" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2" Visibility="Hidden">
+                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Waiting Time</TextBlock>
+                        <TextBlock x:Name="txbWorstWaiting" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Completion Time</TextBlock>
+                        <TextBlock x:Name="txbWorstCompletion" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <ListBox x:Name="lstbProcessWaitingTimes" BorderThickness="0" Grid.Row="1" Grid.Column="3" Background="Transparent"></ListBox>
+                </Grid>
                 <StackPanel Grid.Column="0">
+                    <Label Visibility="Visible ">Time Quantum</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="txtTimeQuantum" Visibility="Visible" Width="85" Margin="0,0,5,0" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
+                        <Button x:Name="btnTimeQuantum" Width="110" Click="BtnTimeQuantum_OnClick">Time Quantum</Button>
+                    </StackPanel>
                     <Label >Process Name</Label>
                     <TextBox x:Name="txtProcessName" Height="22"></TextBox>
                     <Label>Burst Time</Label>
                     <TextBox x:Name="txtBurstTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
-                    <Label>Arrivel Time</Label>
-                    <TextBox x:Name="txtArrivelTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
-                    <CheckBox x:Name="cbOrderArrivelTime" Margin="0 1 0 1">Order Arrivel Time</CheckBox>
-                    <Button x:Name="btnAddProcess" Height="22">Add Process</Button>
+                    
+                    <Button x:Name="btnAddProcess" Height="22" Margin="0 15 0 0" Click="BtnAddProcess_OnClick">Add Process</Button>
                 </StackPanel>
-
-            </Grid>
-            <Grid Grid.Column="2" Background="Orchid">
-                <TextBox IsReadOnly="True" Background="Transparent"></TextBox>
             </Grid>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="1">
-            <ProgressBar Value="0" Height="30" VerticalAlignment="Top" Background="DarkOrange" Foreground="LightSeaGreen" IsIndeterminate="False"/>
+        <Grid x:Name="grdProcesses" Grid.Row="3" Grid.Column="1">
+            <ProgressBar Visibility="Hidden" Value="0" Height="30" VerticalAlignment="Top" Background="DarkOrange" Foreground="LightSeaGreen" IsIndeterminate="False"/>
         </Grid>
     </Grid>
 </Window>

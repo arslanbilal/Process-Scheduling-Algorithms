@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Process_Scheduling_Algorithms.Classes;
 
 namespace Process_Scheduling_Algorithms
 {
@@ -19,9 +9,11 @@ namespace Process_Scheduling_Algorithms
     /// </summary>
     public partial class SJF : Window
     {
+        private Graph _graph;
         public SJF()
         {
             InitializeComponent();
+            _graph = new Graph(grdProcesses);
         }
 
         //! TextBox'a sadece harf kabul eden Fonksiyon.
@@ -30,8 +22,12 @@ namespace Process_Scheduling_Algorithms
             if (!char.IsDigit(e.Text, e.Text.Length - 1))
             {
                 e.Handled = true;
-
             }
+        }
+
+        private void BtnAddProcess_OnClick(object sender, RoutedEventArgs e)
+        {
+            _graph.AddProcess(int.Parse(txtBurstTime.Text), txtProcessName.Text, int.Parse(txtArrivalTime.Text));
         }
     }
 }
