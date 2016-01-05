@@ -1,4 +1,4 @@
-﻿namespace Process_Scheduling_Algorithms
+﻿namespace Process_Scheduling_Algorithms.Classes
 {
     class Process
     {
@@ -13,26 +13,26 @@
 
         public int BurstTime
         {
-            get { return _burstTime; }
-            set { _burstTime = value < 0 ? 0 : value; }
+            get { return this._burstTime; }
+            set { this._burstTime = value < 0 ? 0 : value; }
         }
 
         public int ArrivalTime
         {
-            get { return _arrivalTime; }
-            set { _arrivalTime = value < 0 ? 0 : value; }
+            get { return this._arrivalTime; }
+            set { this._arrivalTime = value < 0 ? 0 : value; }
         }
 
         public int Priority
         {
-            get { return _priority; }
-            set { _priority = value < 0 ? 0 : value; }
+            get { return this._priority; }
+            set { this._priority = value < 0 ? 0 : value; }
         }
 
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return this._name; }
+            set { this._name = value; }
         }
 
         public Process(string name, int priority, int burstTime, int arrivalTime)

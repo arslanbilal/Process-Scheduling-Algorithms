@@ -1,20 +1,23 @@
-﻿<Window x:Class="Process_Scheduling_Algorithms.MainWindow"
+﻿<Controls:MetroWindow x:Class="Process_Scheduling_Algorithms.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="Process Scheduling Algorithms" Height="400" Width="525" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
        <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
                 <Label Content="Select the Algorithms:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 0 0 0"/>
                 <ComboBox x:Name="cbProcesses" VerticalAlignment="Top" Margin="5 2 0 0" Width="280">
-                    <ComboBoxItem IsSelected="True" x:Name="cbiFCFS" Selected="CbiFCFS_OnSelected">First-Come First-Serve(FCFS)</ComboBoxItem>
-                    <ComboBoxItem x:Name="cbiSJF" Selected="CbiSJF_OnSelected">Shortest Job First(SJF)</ComboBoxItem>
-                    <ComboBoxItem x:Name="cbiSRTF" Selected="CbiSRTF_OnSelected">Shortest Remaining Time First(SRTF)</ComboBoxItem>
-                    <ComboBoxItem x:Name="cbiPP" Selected="CbiPP_OnSelected">Priority-Preemptive</ComboBoxItem>
-                    <ComboBoxItem x:Name="cbiPNP" Selected="CbiPNP_OnSelected">Priority-Nonpreemptive</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True" x:Name="cbiFCFS" Selected="CbiFCFS_OnSelected" >First-Come First-Serve(FCFS)</ComboBoxItem>
+                    <ComboBoxItem Height="0" x:Name="cbiSJF" Selected="CbiSJF_OnSelected" IsEnabled="False" Visibility="Hidden">Shortest Job First(SJF)</ComboBoxItem>
+                    <ComboBoxItem Height="0" x:Name="cbiSRTF" Selected="CbiSRTF_OnSelected" IsEnabled="False" Visibility="Hidden">Shortest Remaining Time First(SRTF)</ComboBoxItem>
+                    <ComboBoxItem Height="0" x:Name="cbiPP" Selected="CbiPP_OnSelected" IsEnabled="False" Visibility="Hidden">Priority-Preemptive</ComboBoxItem>
+                    <ComboBoxItem Height="0" x:Name="cbiPNP" Selected="CbiPNP_OnSelected" IsEnabled="False" Visibility="Hidden">Priority-Nonpreemptive</ComboBoxItem>
                     <ComboBoxItem x:Name="cbiRR" Selected="CbiRR_OnSelected">Round-Robin</ComboBoxItem>
                 </ComboBox>
-                <Button x:Name="btnGO" Margin="10 0 10 0" Width="65.5" Click="BtnGO_OnClick">Choose</Button>
+                <Button x:Name="btnGO" Margin="10 0 10 0"  Click="BtnGO_OnClick" Controls:ButtonHelper.CornerRadius="0">
+                    <TextBlock>CHOOSE</TextBlock>
+                </Button>
             </StackPanel>
             <GroupBox Header="Algorithm Details" Margin="10 0 10 -5" Height="300">
                 <Grid>
@@ -28,4 +31,4 @@
             </GroupBox>
         </StackPanel>
     </Grid>
-</Window>
+</Controls:MetroWindow>
