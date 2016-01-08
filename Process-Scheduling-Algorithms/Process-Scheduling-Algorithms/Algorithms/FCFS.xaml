@@ -1,83 +1,185 @@
-﻿<Window x:Class="Process_Scheduling_Algorithms.FCFS"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="First-Come First-Serve(FCFS)" Height="350" Width="555" ResizeMode="CanResize" MaxHeight="350" MinHeight="350" MinWidth="555">
-    <Grid ShowGridLines="False" Background="#FFBAE2E0">
-        <Grid.RowDefinitions >
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="62*"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="38*"/>
-            <RowDefinition Height="5"/>
+﻿<Controls:MetroWindow x:Class="Process_Scheduling_Algorithms.Fcfs"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      Title="First-Come First-Serve(FCFS)" Height="400" Width="555" ResizeMode="CanResize"
+                      MaxHeight="400" MinHeight="400" MinWidth="555">
+    <Window.Resources>
+        <Style TargetType="{x:Type RadioButton}">
+            <!--<Setter Property="FontSize" Value="20"/>-->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <BulletDecorator Cursor="Hand">
+                            <!--Text element-->
+                            <Border CornerRadius="0" BorderBrush="#FFE2E2E2" BorderThickness="1">
+                                <Grid>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <!--We don't need any bullet, cause our border is the switching element-->
+                                    <Border Background="#ABCDCDCD" CornerRadius="1" Name="RadioMark" />
+
+                                    <!-- To change the apearance to button stripe 2, edit the margins! -->
+                                </Grid>
+
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="White" Offset="0" />
+                                        <GradientStop Color="#FFA0005B" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </BulletDecorator>
+
+                        <!--If item is checked, trigger the visibility of the mark-->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="RadioMark" Property="Background" Value="#88FFD700" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid ShowGridLines="False" Background="#FFAE5F3B">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="62*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="38*" />
+            <RowDefinition Height="5" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,103" Grid.RowSpan="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="65*"/>
-                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="65*" />
+                <ColumnDefinition Width="5" />
                 <!--<ColumnDefinition Width="35*"/>-->
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="65*" />
                 </Grid.ColumnDefinitions>
                 <!--<DataGrid x:Name="dgProcesses" Grid.Column="2" HeadersVisibility="All" ColumnHeaderHeight="40" VerticalScrollBarVisibility="Auto" CanUserAddRows="True" CanUserDeleteRows="False" CanUserResizeRows="False"/>-->
-                <Grid Grid.Column="2" Background="LightSlateGray">
+                <Grid Grid.Column="2" Background="Transparent">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="20*" />
+                        <RowDefinition Height="80*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <RadioButton x:Name="rbDefault" Grid.Row="0" Grid.Column="0" FontWeight="Bold" IsChecked="True" Checked="ToggleButton_OnChecked">Default</RadioButton>
-                    <RadioButton x:Name="rbBestCase" Grid.Row="0" Grid.Column="1" FontWeight="Bold" Checked="ToggleButton_OnChecked">Best Case</RadioButton>
-                    <RadioButton x:Name="rbWorstCase" Grid.Row="0" Grid.Column="2" FontWeight="Bold" Checked="ToggleButton_OnChecked">Worst Case</RadioButton>
-                    <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center">Process Waiting Time</TextBlock>
+                    <RadioButton x:Name="rbDefault" Grid.Row="0" Grid.Column="0" FontWeight="Bold" IsChecked="True"
+                                 Checked="ToggleButton_OnChecked">
+                        Default
+                    </RadioButton>
+                    <RadioButton x:Name="rbBestCase" Grid.Row="0" Grid.Column="1" FontWeight="Bold"
+                                 Checked="ToggleButton_OnChecked">
+                        Best Case
+                    </RadioButton>
+                    <RadioButton x:Name="rbWorstCase" Grid.Row="0" Grid.Column="2" FontWeight="Bold"
+                                 Checked="ToggleButton_OnChecked">
+                        Worst Case
+                    </RadioButton>
+                    <TextBlock Grid.Row="0" Grid.Column="3" TextWrapping="Wrap" FontWeight="Bold"
+                               TextAlignment="Center" VerticalAlignment="Center">
+                        Process Waiting Time
+                    </TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="0">
-                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Waiting Time</TextBlock>
-                        <TextBlock x:Name="txbDefaultWaiting" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Completion Time</TextBlock>
-                        <TextBlock x:Name="txbDefaultCompletion" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"
+                                   Foreground="White" FontWeight="Bold">
+                            Average Waiting Time
+                        </TextBlock>
+                        <TextBlock x:Name="txbDefaultWaiting" VerticalAlignment="Top" TextWrapping="Wrap"
+                                   Foreground="White" FontWeight="Bold"
+                                   TextAlignment="Center" />
+                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"
+                                   Foreground="White" FontWeight="Bold">
+                            Average Completion Time
+                        </TextBlock>
+                        <TextBlock x:Name="txbDefaultCompletion" VerticalAlignment="Top" TextWrapping="Wrap"
+                                   Foreground="White" FontWeight="Bold"
+                                   TextAlignment="Center" />
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="1">
-                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Waiting Time</TextBlock>
-                        <TextBlock x:Name="txbBestWaiting" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Completion Time</TextBlock>
-                        <TextBlock x:Name="txbBestCompletion" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"
+                                   Foreground="White" FontWeight="Bold">
+                            Average Waiting Time
+                        </TextBlock>
+                        <TextBlock x:Name="txbBestWaiting" VerticalAlignment="Top" TextWrapping="Wrap"
+                                   Foreground="White" FontWeight="Bold"
+                                   TextAlignment="Center" />
+                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"
+                                   Foreground="White" FontWeight="Bold">
+                            Average Completion Time
+                        </TextBlock>
+                        <TextBlock x:Name="txbBestCompletion" VerticalAlignment="Top" TextWrapping="Wrap"
+                                   Foreground="White" FontWeight="Bold"
+                                   TextAlignment="Center" />
                     </StackPanel>
                     <StackPanel Grid.Row="1" Grid.Column="2">
-                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Waiting Time</TextBlock>
-                        <TextBlock x:Name="txbWorstWaiting" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center">Average Completion Time</TextBlock>
-                        <TextBlock x:Name="txbWorstCompletion" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                        <TextBlock Margin="0 5 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"
+                                   Foreground="White" FontWeight="Bold">
+                            Average Waiting Time
+                        </TextBlock>
+                        <TextBlock x:Name="txbWorstWaiting" VerticalAlignment="Top" TextWrapping="Wrap"
+                                   Foreground="White" FontWeight="Bold"
+                                   TextAlignment="Center" />
+                        <TextBlock Margin="0 15 0 0" VerticalAlignment="Top" TextWrapping="Wrap" TextAlignment="Center"
+                                   Foreground="White" FontWeight="Bold">
+                            Average Completion Time
+                        </TextBlock>
+                        <TextBlock x:Name="txbWorstCompletion" VerticalAlignment="Top" TextWrapping="Wrap"
+                                   Foreground="White" FontWeight="Bold"
+                                   TextAlignment="Center" />
                     </StackPanel>
-                    <ListBox x:Name="lstbProcessWaitingTimes" BorderThickness="0" Grid.Row="1" Grid.Column="3" Background="Transparent"></ListBox>
+                    <ListBox x:Name="lstbProcessWaitingTimes" BorderThickness="0" Grid.Row="1" Grid.Column="3"
+                             Background="Transparent" HorizontalContentAlignment="Center">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock Text="{Binding}" HorizontalAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
                 <StackPanel Grid.Column="0">
-                    <Label >Process Name</Label>
-                    <TextBox x:Name="txtProcessName" Height="22"></TextBox>
-                    <Label>Burst Time</Label>
-                    <TextBox x:Name="txtBurstTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
-                    <Label Visibility="Hidden">Arrival Time</Label>
-                    <TextBox Visibility="Hidden" x:Name="txtArrivalTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
-                    <CheckBox Visibility="Hidden" x:Name="cbOrderArrivalTime" Margin="0 1 0 1">Order Arrival Time</CheckBox>
-                    <Button x:Name="btnAddProcess" Height="22" Margin="0 0 0 0" >Add Process</Button>
+                    <TextBox x:Name="txtProcessName" FontSize="24" Margin="5"
+                             Controls:TextBoxHelper.Watermark="Process Name" />
+                    <TextBox x:Name="txtBurstTime" PreviewTextInput="txt_PreviewTextInput"
+                             Controls:TextBoxHelper.Watermark="Burst Time" FontSize="24" Margin="5" />
+                    <!--<Label Visibility="Hidden">Arrival Time</Label>-->
+                    <!--<TextBox Visibility="Hidden" x:Name="txtArrivalTime" Height="22" PreviewTextInput="txt_PreviewTextInput"></TextBox>
+                    <CheckBox Visibility="Hidden" x:Name="cbOrderArrivalTime" Margin="0 1 0 1">Order Arrival Time</CheckBox>-->
+                    <Button x:Name="btnAddProcess" Margin="5" FontSize="24" Controls:ButtonHelper.CornerRadius="0"
+                            Background="LightGreen">
+                        <TextBlock>
+                            ADD
+                        </TextBlock>
+                    </Button>
+                    <Button x:Name="btnClearAll" Margin="5" FontSize="24" Controls:ButtonHelper.CornerRadius="0"
+                            Foreground="White" BorderThickness="0"
+                            Background="#FFF82A42" Click="btnClearAll_OnClick">
+                        <TextBlock>
+                            CLEAR ALL
+                        </TextBlock>
+                    </Button>
                 </StackPanel>
             </Grid>
-            
         </Grid>
         <Grid x:Name="grdProcesses" Grid.Row="3" Grid.Column="1">
-            <ProgressBar Visibility="Hidden" Value="0" Height="30" VerticalAlignment="Top" Background="DarkOrange" Foreground="LightSeaGreen" IsIndeterminate="False"/>
+            <ProgressBar Visibility="Hidden" Value="0" Height="30" VerticalAlignment="Top" Background="DarkOrange"
+                         Foreground="LightSeaGreen" IsIndeterminate="False" />
         </Grid>
     </Grid>
-</Window>
+</Controls:MetroWindow>
